@@ -33,7 +33,7 @@ contract voteDemo {
         voters[chairperson].weight = 1;
         
         //初始化投票的主题
-        for(uint i = 0; i <peposposalName.length ;i++ ){
+        for(uint i = 0; i < peposposalName.length ;i++ ){
             posposals.push(Posposal({name:peposposalName[i],voteCount:0}));
         }
     }
@@ -43,8 +43,8 @@ contract voteDemo {
         //只有投票的发起人才能够添加投票者
         //添加的投票者不能是已经参加过投票了
         
-        require(    voters[_voter].voted == false);
-        require( msg.sender==chairperson  );
+        require(voters[_voter].voted == false);
+        require(msg.sender==chairperson);
         //赋予合格的投票者投票权重
         voters[_voter].weight = 1;
     }
@@ -73,10 +73,10 @@ contract voteDemo {
         //检测代理人是否已经投票
         if(delegate.voted){
             //如果是：则把票直接投给代理人投的那个主题
-            posposals[delegate.vote].voteCount +=sender.weight;
+            posposals[delegate.vote].voteCount += sender.weight;
         }else{
             //如果不是：则把投票的权重给予代理人
-            delegate.weight +=sender.weight;
+            delegate.weight += sender.weight;
         }
     }
     //投票
@@ -88,12 +88,12 @@ contract voteDemo {
             //如果否：则投票
         sender.voted = true;  //设置当前用户已投票
         sender.vote = pid;    //设置当前用户的投的主题的编号
-        posposals[pid].voteCount +=sender.weight;  //把当前用户的投票权重给予对应的主题
+        posposals[pid].voteCount += sender.weight;  //把当前用户的投票权重给予对应的主题
     }
    
     
     //计算票数最多的主题
-    function winid() constant public returns(uint winningid){
+    function winid() view public returns(uint winningid){
         //声明一个临时变量，用来比大小
         uint winningCount = 0;
         //编列主题，找到投票数最大的主题
