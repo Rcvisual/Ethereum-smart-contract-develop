@@ -74,7 +74,7 @@ contract BlindAuction {
         for (uint i = 0; i < length; i++) {
             Bid storage bid = bids[msg.sender][i];
             (uint value, bool fake, bytes32 secret) =
-                    (_values[i], _fake[i], _secret[i]);
+            (_values[i], _fake[i], _secret[i]);
             if (bid.blindedBid != keccak256(value, fake, secret)) {
                 // 出价未能正确披露
                 // 不返还订金
